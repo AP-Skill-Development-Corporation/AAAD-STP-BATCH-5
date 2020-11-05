@@ -56,9 +56,9 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="register"
+        android:text="Gmail Sign-in"
         android:layout_marginTop="15dp"
-        android:onClick="register"/>
+        android:onClick="gsign"/>
 
 
 </LinearLayout>
