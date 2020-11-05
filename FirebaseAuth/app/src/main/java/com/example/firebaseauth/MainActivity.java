@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         GoogleSignInOptions gso = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
                 .build();
         client = GoogleSignIn.getClient(this,gso);
     }
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
+                            Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(MainActivity.this,HomeActivity.class));
                             finish();
                         }else{
