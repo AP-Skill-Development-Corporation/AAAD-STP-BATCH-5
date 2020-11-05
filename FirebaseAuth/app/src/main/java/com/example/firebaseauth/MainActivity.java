@@ -1,10 +1,13 @@
 package com.example.firebaseauth;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -56,5 +59,45 @@ public class MainActivity extends AppCompatActivity {
 
     public void register(View view) {
         startActivity(new Intent(this,SecondActivity.class));
+    }
+
+    public void reset(View view) {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        View v = LayoutInflater.from(this).inflate(R.layout.reset,null,false);
+        final EditText mail = v.findViewById(R.id.email);
+        builder.setView(v);
+        builder.setCancelable(false);
+        builder.setPositiveButton("Reset", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            String email = mail.getText().toString();
+            if (email.isEmpty()){
+                Toast.makeText(MainActivity.this, "cant be empty", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                auth.sendPasswordResetEmail(email).addOnCompleteListener(MainActivity.this,
+                        new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()){
+                                    Toast.makeText(MainActivity.this, "link sent to mail",
+                                            Toast.LENGTH_SHORT).show();
+                                    dialogInterface.dismiss();
+                                }else{
+                                    Toast.makeText(MainActivity.this, "Failed",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
     }
 }
