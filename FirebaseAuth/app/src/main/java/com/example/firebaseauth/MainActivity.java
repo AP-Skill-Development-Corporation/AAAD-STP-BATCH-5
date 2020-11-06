@@ -149,4 +149,8 @@ public class MainActivity extends AppCompatActivity {
         Intent i = client.getSignInIntent();
         startActivityForResult(i,0);
     }
+
+    public void pauth(View view) {
+        startActivity(new Intent(this,PhoneActivity.class));
+    }
 }

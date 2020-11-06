@@ -59,6 +59,12 @@
         android:text="Gmail Sign-in"
         android:layout_marginTop="15dp"
         android:onClick="gsign"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phone Auth"
+        android:layout_marginTop="15dp"
+        android:onClick="pauth"/>
 
 
 </LinearLayout>
